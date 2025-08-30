@@ -14,7 +14,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Icon } from "@iconify/react";
-import MotionWrapper from "@/app/RuntimeComponents/MotionWrapper";
+import MotionWrapper from "@/ChatLibrary/RuntimeComponents/MotionWrapper";
 
 export function AppSidebar() {
   const [activeItem, setActiveItem] = useState("/");
