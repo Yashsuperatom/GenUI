@@ -21,14 +21,18 @@ export interface MessagePart {
 }
 
 export interface ChatConfig {
+  api?: string;
+  modelName?: string;
+  initialMessages?: ChatMessage[];
+  stream?: boolean;
   maxLength?: number;
   placeholder?: string;
   enableVoice?: boolean;
   enableAttachments?: boolean;
   enablePrompts?: boolean;
-  modelName?: string;
-  onError?: (error: Error) => void;
+  onError?: (err: Error) => void;
 }
+
 
 export interface ChatHandlers {
   [key: string]: (...args: any[]) => any;

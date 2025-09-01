@@ -53,7 +53,7 @@ export function AppSidebar() {
                   <Icon icon="qlementine-icons:stars-16" />
                   Navigation
                 </div>
-              )}
+              )}w
             
             </MotionWrapper>
             <SidebarTrigger className="hover:bg-transparent focus-visible:ring-0 cursor-pointer z-10 " />

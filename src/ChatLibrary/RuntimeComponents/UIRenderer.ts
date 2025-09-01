@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { T_UI_Component  ,Z_UI_Component} from '@/app/types/UIschema'
+import { T_UI_Component  ,Z_UI_Component} from '@/ChatLibrary/types/UIschema'
 
 interface UIRendererProps {
 	schema: T_UI_Component

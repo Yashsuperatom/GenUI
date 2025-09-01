@@ -48,12 +48,14 @@ export default function ChatInput({
   }, [value, onHeightChange]);
 
   return (
+    <div className="w-full flex justify-center">
+
     <div 
       ref={inputContainerRef}
-      className="fixed bottom-0 w-full max-w-[50vw] bg-white rounded-t-full justify-center"
+      className=" absolute bottom-0 w-full  bg-white max-w-[81vw]  lg:max-w-[51vw] rounded-t-2xl -translate-x-2 "
     >
       <MotionWrapper>
-        <div className="group rounded-2xl mx-auto justify-center w-full">
+        <div className="group rounded-2xl mx-auto">
           <div className="flex flex-col gap-2 rounded-2xl bg-gradient-to-r from-transparent to-transparent group-focus-within:from-[#68a4c2] group-focus-within:to-[#927db8] transition-colors duration-200 p-[1.5px] bg-gray-100 shadow-md">
             <div className="flex flex-col bg-white rounded-2xl overflow-hidden relative">
               <div className="flex items-center gap-2 sm:gap-3 px-2">
@@ -124,6 +126,7 @@ export default function ChatInput({
           Script may generate inaccurate information about people, places, or facts. Model: {modelName}
         </p>
       </MotionWrapper>
+    </div>
     </div>
   );
 };

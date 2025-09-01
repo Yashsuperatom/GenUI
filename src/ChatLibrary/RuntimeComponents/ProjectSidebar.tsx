@@ -40,7 +40,7 @@ export function ProjectSidebar() {
 
       <SidebarProvider id="2" className="w-fit bg-transparent   ">
       {/* triger for mobile view */}
-           <span className="sm:block lg:hidden">
+           <span className="sm:block md:hidden">
            <SidebarTrigger  />
            </span>
 
@@ -48,7 +48,7 @@ export function ProjectSidebar() {
         id="2"
         side="right"
         collapsible="icon"
-        className=" static   border-r  border-gray-200 dark:bg-gray-900 dark:border-gray-700 bg-[#f7fbfc]"
+        className="   border-r  border-gray-200 dark:bg-gray-900 dark:border-gray-700 bg-[#f7fbfc]"
         >
         <SidebarContent>
           <SidebarGroup>

@@ -6,6 +6,10 @@ import { ChatMessage, ChatConfig, ChatHandlers } from "../types/types";
 import MessageBubble from "./MessageBubble";
 import ChatInput from "./InputBox";
 import Hero from "./Hero";
+import { SidebarProvider ,SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "./AppSidebar";
+import { ProjectSidebar } from "./ProjectSidebar";
+import { strict } from "assert";
 
 export interface ChatRuntimeRef {
   sendMessage: (message: string) => void;
@@ -31,13 +35,16 @@ const ChatRuntime = forwardRef<ChatRuntimeRef, ChatRuntimeProps>(({
   heroComponent: CustomHero
 }, ref) => {
   const {
-    maxLength = 3000,
-    placeholder = "Say something...",
-    enableVoice = true,
-    enableAttachments = true,
-    enablePrompts = true,
-    modelName = "Script AI v1.3",
-    onError
+  api = "/api/chat",              
+  modelName = "Script AI v1.3",   
+  initialMessages = [],
+  stream = true,
+  maxLength = 3000,
+  placeholder = "Say something...",
+  enableVoice = true,
+  enableAttachments = true,
+  enablePrompts = true,
+  onError
   } = config;
 
   const [inputValue, setInputValue] = useState("");
@@ -97,34 +104,46 @@ const ChatRuntime = forwardRef<ChatRuntimeRef, ChatRuntimeProps>(({
   const HeroComponent = CustomHero || Hero;
 
   return (
+    <SidebarProvider id="1" >
+
+       {/* left siderbar */}
+           <AppSidebar />
+
+           {/* triger for mobile view */}
+           <span className="sm:block md:hidden">
+           <SidebarTrigger  />
+           </span>
+
+
+
+
     <div className={`flex flex-col w-full h-screen bg-white ${className}`}>
       <div 
         ref={containerRef} 
         className="flex overflow-y-auto h-screen justify-center"
-      >
+        >
         <div
           className="px-[5vw] w-full lg:max-w-[60vw]"
           style={{ paddingBottom: inputHeight }}
-        >
+          >
           {messages.length === 0 && (
             <HeroComponent onOptionClick={handleOptionClick} />
           )}
 
           {messages.map((message, idx) => (
             <MessageBubble
-              key={message.id}
-              message={message as ChatMessage}
-              isStreaming={
-                message.role === "assistant" &&
-                status === "streaming" &&
-                idx === messages.length - 1
-              }
-              currentSchema={currentSchema}
-              handlers={handlers}
+            key={message.id}
+            message={message as ChatMessage}
+            isStreaming={
+              message.role === "assistant" &&
+              status === "streaming" &&
+              idx === messages.length - 1
+            }
+            currentSchema={currentSchema}
+            handlers={handlers}
             />
           ))}
-
-          {messages.length > 0 && <div className="lg:h-[25vh] sm:h-[60vh]" />}
+          {messages.length > 0 && <div className="lg:h-[25vh] sm:h-[70vh] "  />}
         </div>
       </div>
 
@@ -140,8 +159,10 @@ const ChatRuntime = forwardRef<ChatRuntimeRef, ChatRuntimeProps>(({
         enableAttachments={enableAttachments}
         enablePrompts={enablePrompts}
         modelName={modelName}
-      />
+        />
     </div>
+<ProjectSidebar />
+        </SidebarProvider>
   );
 });
 

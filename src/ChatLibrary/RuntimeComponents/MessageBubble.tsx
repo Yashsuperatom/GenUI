@@ -1,6 +1,7 @@
 import { ChatMessage, ChatHandlers } from "../types/types";
 import Markdown from "./MemoizedMarkdown";
 import UIRenderer from "./UIRenderer";
+import React from "react";
 
 interface MessageBubbleProps {
   message: ChatMessage;
@@ -15,6 +16,8 @@ export default function MessageBubble({
   currentSchema, 
   handlers 
 }: MessageBubbleProps) {
+
+  
   return (
     <div
       className={`w-full flex gap-2 sm:gap-3 py-6 ${
@@ -40,7 +43,9 @@ export default function MessageBubble({
       >
         <div className="w-full">
           {message.parts.map((part, index) => {
-            if (part.type === "tool-ui-block" || part.type === "tool-layout") {
+            if (part.type === "text") 
+              return <Markdown key={`${message.id}-${index}`} content={part.text} />;
+            else  if (part.type === "tool-ui-block" || part.type === "tool-layout") {
               switch (part.state) {
                 case "output-available":
                   return <UIRenderer key={index} schema={currentSchema} handlers={handlers} />;
@@ -59,18 +64,8 @@ export default function MessageBubble({
                 default:
                   return null;
               }
-            } else if (part.type === "text") {
-              try {
-                const maybeJson = JSON.parse(part.text);
-                if (maybeJson.type && maybeJson.props) {
-                  return <UIRenderer key={index} schema={currentSchema} handlers={handlers} />;
-                }
-              } catch {
-                // Not JSON, treat as markdown
-              }
-              return <Markdown key={index} content={part.text} />;
-            }
-            return null;
+            } 
+             
           })}
         </div>
       </div>
